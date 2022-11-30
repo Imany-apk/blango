@@ -6,10 +6,11 @@ from django.contrib.contenttypes.fields import GenericRelation
 
 
 class Tag(models.Model):
-    value = models.TextField(max_length=100)
+    value = models.TextField(max_length=100, unique=True)
 
     def __str__(self):
         return self.value
+
 
 class Comment(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -21,7 +22,8 @@ class Comment(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-      return self.content
+        return self.content
+
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
@@ -37,6 +39,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class AuthorProfile(models.Model):
     user = models.OneToOneField(
