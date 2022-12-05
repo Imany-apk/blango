@@ -9,6 +9,9 @@ import os
 
 from blog.api.views import PostViewSet, UserDetail, TagViewSet
 
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+
 urlpatterns = [
     # remove for viewset ones
     # path("posts/", PostList.as_view(), name="api_post_list"),
@@ -21,7 +24,9 @@ urlpatterns = format_suffix_patterns(urlpatterns)
 # for authorization
 urlpatterns += [
     path("auth/", include("rest_framework.urls")),
-    path("token-auth/", views.obtain_auth_token)
+    path("token-auth/", views.obtain_auth_token),
+    path("jwt/", TokenObtainPairView.as_view(), name="jwt_obtain_pair"),
+    path("jwt/refresh/", TokenRefreshView.as_view(), name="jwt_refresh"),
 ]
 
 
