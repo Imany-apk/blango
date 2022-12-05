@@ -8,6 +8,9 @@ from django.contrib.contenttypes.fields import GenericRelation
 class Tag(models.Model):
     value = models.TextField(max_length=100, unique=True)
 
+    class Meta:
+        ordering = ["value"]
+
     def __str__(self):
         return self.value
 
@@ -36,6 +39,9 @@ class Post(models.Model):
     content = models.TextField()
     tags = models.ManyToManyField(Tag, related_name="posts")
     comments = GenericRelation(Comment)
+
+    class Meta:
+        ordering = ["modified_at"]
 
     def __str__(self):
         return self.title
